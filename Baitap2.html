@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>BÀI TẬP 2</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  </head>
+  <body>
+    <h1 style="text-align: center;">BÀI TẬP 2</h1>
+    <hr>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="card">
+            <div class="card-header">
+                QUẢN LÝ TIÊU THỤ ĐIỆN
+            </div>
+            <div class="card-body">
+                <div class="form-group">
+                    <label for="">Tên khách hàng </label>
+                    <input type="text" name="" id="ten_KH" class="form-control" placeholder="" aria-describedby="helpId">
+                </div>
+                <div class="form-group">
+                    <label for="so_kwh">Số KW tiêu thụ:</label>
+                    <input type="number" name="" id="so_kwh" class="form-control" placeholder="" aria-describedby="helpId">
+                </div>
+                    <button id="btnCalculate" class="btn btn-success">Tính tiền điện</button>
+                    <hr>
+                    <div id="tinhTienDien" class="card-footer text-muted"></div>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+        function getEle(id){
+            return document.getElementById(id);
+        }
+        function calculate(){
+          /*
+          Mô hình 3 khối:
+          Input: tên và số kwh tiêu thụ
+          Qúa trình xử lý:
+          - Đặt 1 biến để tính ra số tiền khi lấy thông tin từ số kwh đã tiêu thụ
+          - Dùng innerHTML để thêm giá trị theo yêu cầu của đề bài
+          Output: kết quả tiền điện của khách hàng
+          */
+          var soKwh = Number(getEle("so_kwh").value);
+
+          // Tính tiền theo quy tắc
+          var soTien;
+          if (soKwh <= 50) {
+            soTien = soKwh * 500;
+          } else if (soKwh <= 100) {
+            soTien = 50 * 500 + (soKwh - 50) * 650;
+          } else if (soKwh <= 200) {
+            soTien = 50 * 500 + 50 * 650 + (soKwh - 100) * 850;
+          } else if(soKwh <= 350){
+            soTien = 50 * 500 + 50 * 650 + 100 * 850 + (soKwh - 200) * 1100;
+          }else{
+            soTien = 50 * 500 + 50 * 650 + 100 * 850 + 150 * 1100 + (soKwh - 350) * 1300;
+          }
+    
+          // Hiển thị kết quả
+          var tinhTienDien = getEle("tinhTienDien");
+          tinhTienDien.innerHTML = "Số tiền phải trả của khách hàng " + getEle("ten_KH").value + " là " + soTien.toLocaleString('vi-VN') + "đ";
+        }
+        getEle("btnCalculate").onclick = function(){
+            calculate();
+        }
+    </script>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </body>
+</html>

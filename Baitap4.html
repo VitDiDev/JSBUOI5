@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>BÀI TẬP 4</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  </head>
+  <body>
+    <h1 style="text-align: center;">BÀI TẬP 4</h1>
+    <hr>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="card">
+            <div class="card-header">
+                TÍNH TIỀN CAP
+            </div>
+            <div class="card-body">
+              <div class="form-group">
+                <label for="customer-id">Mã khách hàng:</label>
+                <input type="text" id="customer-id" class="form-control" name="customer-id">
+              </div>
+              <div class="form-group">
+                <label for="customer-type">Loại khách hàng:</label>
+                <select class="form-control" id="customer-type" name="customer-type" onchange="document.getElementById('connection-count-container').style.display = (this.value == '2') ? 'block' : 'none'">
+                  <option value="1">Nhà dân</option>
+                  <option value="2">Doanh nghiệp</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <div id="connection-count-container" style="display:none">
+                  <label for="connection-count">Số kết nối:</label>
+                  <input class="form-control" type="text" id="connection-count" name="connection-count">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="premium-channels">Số kênh cao cấp:</label>
+                <input class="form-control" type="text" id="premium-channels" name="premium-channels">
+              </div>
+            </div>
+            <button id="btnCalculate" class="btn btn-success">Tính hóa đơn</button>
+            <hr>
+            <div id="printKQ" class="card-footer text-muted"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+        /*
+          Mô hình 3 khối:
+          Input: nhập vào mã khách hàng, số kết nối, số kênh cao cấp
+          Qúa trình xử lý:
+          - Đặt 1 biến để tính ra tổng tiền cần phải trả
+          - Dùng if để xét xem xem nó là doanh nghiệp hay dân
+          - Tính theo công thức
+          - Dùng innerHTML để thêm giá trị theo yêu cầu của đề bài
+          Output: tiền cap cần phải trả cho doanh nghiệp hoặc dân
+          */
+        function getEle(id){
+            return document.getElementById(id);
+        }
+        function calculate(){
+            var customer_type = getEle("customer-type").value;
+            var tongTien = 0;
+            var premium_channels = getEle("premium-channels").value;
+            var connection_count = getEle("connection-count").value;
+
+            if(customer_type == "1"){
+              tongTien = parseFloat(4.5+20.5+premium_channels*7.5);
+              getEle("printKQ").innerHTML = "Tiền cap của " +getEle("customer-id").value +" là: " + tongTien;
+            }
+            else{
+              if(connection_count<10){
+                tongTien = parseFloat(15+75+premium_channels*50);
+                getEle("printKQ").innerHTML = "Tiền cap của " +getEle("customer-id").value +" là: $" + tongTien;
+              }else{
+                tongTien = parseFloat(15+75+premium_channels*50) + parseFloat(connection_count-10)*5;
+                getEle("printKQ").innerHTML = "Tiền cap của " +getEle("customer-id").value +" là: $" + tongTien;
+              } 
+            }   
+        }
+        getEle("btnCalculate").onclick = function(){
+            calculate();
+        }
+    </script>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </body>
+</html>

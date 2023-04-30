@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>BÀI TẬP 1</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  </head>
+  <body>
+    <h1 style="text-align: center;">BÀI TẬP 1</h1>
+    <hr>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="card">
+            <div class="card-header">
+                QUẢN LÝ TUYỂN SINH
+            </div>
+            <div class="card-body">
+                <div class="form-group">
+                    <label for="diem-chuan">Nhập điểm chuẩn:</label>
+                    <input type="text" class="form-control" id="diem_chuan">
+                  </div>
+                  <div class="form-group">
+                    <label for="khu-vuc">Khu vực:</label>
+                    <select class="form-control" id="khu_vuc">
+                      <option value="2">A</option>
+                      <option value="1">B</option>
+                      <option value="0.5">C</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="doi-tuong">Đối tượng:</label>
+                    <select class="form-control" id="doi_tuong">
+                      <option value="2.5">1</option>
+                      <option value="1.5">2</option>
+                      <option value="1">3</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="diem_mon1">Điểm môn 1:</label>
+                    <input type="text" class="form-control" id="diem_mon1">
+                  </div>
+                  <div class="form-group">
+                    <label for="diem_mon2">Điểm môn 2:</label>
+                    <input type="text" class="form-control" id="diem_mon2">
+                  </div>
+                  <div class="form-group">
+                    <label for="diem_mon3">Điểm môn 3:</label>
+                    <input type="text" class="form-control" id="diem_mon3">
+                  </div>
+                    <button id="ket_qua" class="btn btn-success">Kết quả</button>
+                    <hr>
+                    <div id="printKetQua" class="card-footer text-muted"></div>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+        function getEle(id){
+            return document.getElementById(id);
+        }
+        function ketquaxuatra(){
+          /*
+          Mô hình 3 khối:
+          Input: điểm chuẩn, đối tượng, khu vực và điểm số các môn
+          Qúa trình xử lý:
+          - Đặt 6 biến để lấy ra 6 giá trị của 5 thông tin đã nhập vào 
+          - Dùng 1 biến để tính ra kết quả của điểm tổng kết
+          - Dùng innerHTML để thêm giá trị theo yêu cầu vào trong thẻ div đã có sẵn
+          Output:kết quả đậu hay rớt 
+          */
+          var diem_chuan = parseFloat(getEle("diem_chuan").value);
+          var diem_mon1 = parseFloat(getEle("diem_mon1").value);
+          var diem_mon2 = parseFloat(getEle("diem_mon2").value);
+          var diem_mon3 = parseFloat(getEle("diem_mon3").value);
+          var khu_vuc = parseFloat(getEle("khu_vuc").value);
+          var doi_tuong = parseFloat(getEle("doi_tuong").value);
+          var diem_tong_ket = diem_mon1 + diem_mon2 + diem_mon3 + khu_vuc + doi_tuong;
+          // Kiểm tra xem thí sinh đó đậu hay rớt và tính tổng số điểm đạt được
+          var ket_qua = "";
+          if (diem_tong_ket >= diem_chuan && diem_mon1 > 0 && diem_mon2 > 0 && diem_mon3 > 0) {
+              ket_qua = "đậu";
+              getEle("printKetQua").innerHTML = "Bạn đã " + ket_qua + " với kết quả là: " + diem_tong_ket;
+          } else {
+              ket_qua = "rớt";
+              getEle("printKetQua").innerHTML = "Bạn đã " + ket_qua + " với kết quả là: " + diem_tong_ket;
+          }
+
+          }
+
+          getEle("ket_qua").onclick = function(){
+              ketquaxuatra();
+          }
+    </script>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </body>
+</html>
